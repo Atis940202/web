@@ -1,0 +1,8 @@
+node_modules
+.next
+out
+.cache
+dist
+pnpm-lock.yaml
+.env
+*.log

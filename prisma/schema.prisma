@@ -1,0 +1,30 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = env("DATABASE_PROVIDER") == "postgres" ? "postgresql" : "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Video {
+  id           Int      @id @default(autoincrement())
+  slug         String   @unique
+  title        String
+  description  String
+  youtubeId    String   @unique
+  channelTitle String
+  publishedAt  DateTime
+  duration     String
+  thumb        String
+  heroThumb    String
+  year         Int
+  featured     Boolean  @default(false)
+  tags         Tag[]    @relation("VideoTags")
+}
+
+model Tag {
+  id     Int      @id @default(autoincrement())
+  name   String   @unique
+  videos Video[]  @relation("VideoTags")
+}
